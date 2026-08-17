@@ -234,7 +234,7 @@ textarea.input{height:auto;padding:var(--space-2) var(--space-3);min-height:84px
 .field__msg--ok{color:var(--color-success-fg)}
 /* Campo somente leitura: dado confirmado (ex.: vindo da Receita), exibição sem cara de campo editável */
 .readonly-field{display:flex;flex-direction:column;gap:var(--space-1)}
-.readonly-field__label{font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted)}
+.readonly-field__label{font-size:var(--text-sm);font-weight:600;color:var(--color-heading)}
 .readonly-field__value{font-size:var(--text-base);color:var(--color-heading)}
 .select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .7rem center;padding-right:2rem}
 
@@ -521,7 +521,7 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
   background:transparent;border:0;cursor:pointer;text-align:left;font:600 var(--text-sm)/1.4 var(--font-sans);color:var(--color-heading)}
 .accordion__head:hover{background:var(--color-surface-2)}
 .accordion__head:focus-visible{outline:none;box-shadow:var(--ring)}
-.accordion__chev{flex:0 0 auto;color:var(--color-text-muted);transition:transform .18s}
+.accordion__chev{flex:0 0 auto;display:grid;place-items:center;line-height:0;transform-origin:center;color:var(--color-text-muted);transition:transform .18s}
 .accordion__item.is-open .accordion__chev{transform:rotate(180deg)}
 .accordion__panel{padding:0 var(--space-4) var(--space-4);color:var(--color-text-onmuted);font-size:var(--text-sm)}
 .accordion__item:not(.is-open) .accordion__panel{display:none}
