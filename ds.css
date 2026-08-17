@@ -24,6 +24,7 @@
   --amber-50:#fffbeb; --amber-100:#fef3c7; --amber-200:#fde68a; --amber-500:#f59e0b; --amber-600:#d97706; --amber-700:#b45309; --amber-800:#92400e;
   --red-50:#fef2f2;   --red-100:#fee2e2;   --red-200:#fecaca;   --red-500:#ef4444;   --red-600:#dc2626;   --red-700:#b91c1c;   --red-800:#991b1b;
   --sky-50:#f0f9ff;   --sky-100:#e0f2fe;   --sky-200:#bae6fd;   --sky-500:#0ea5e9;   --sky-600:#0284c7;   --sky-700:#0369a1;   --sky-800:#075985;
+  --teal-50:#f0fdfa;  --teal-100:#ccfbf1; --teal-200:#99f6e4; --teal-500:#14b8a6; --teal-600:#0d9488; --teal-700:#0f766e; --teal-800:#115e59;
 
   /* ---- Semânticos: MARCA (troque aqui pra re-tematizar) ---- */
   --color-primary:        var(--blue-700);   /* #1351b4 · azul institucional gov.br/RFB */
@@ -32,6 +33,11 @@
   --color-primary-subtle: var(--blue-50);
   --color-primary-contrast:#ffffff;
   --color-primary-darker: var(--blue-900);   /* #071d41 · navy p/ rodapé, sidebar e faixas escuras (gov.br) */
+  /* Secundária semântica: teal (realces, gráficos, ênfase que NÃO é status) */
+  --color-secondary:        var(--teal-600);  /* #0d9488 */
+  --color-secondary-hover:  var(--teal-700);
+  --color-secondary-subtle: var(--teal-50);
+  --color-secondary-contrast:#ffffff;
   /* Secundária DECORATIVA (rosa Axians) — só ornamento (detalhe, gradiente, realce visual).
      Nunca carrega informação sozinha nem vira cor de status. */
   --color-accent-2:#e6007e;
@@ -389,6 +395,18 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
 .sidenav__group{font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-muted);padding:var(--space-6) var(--space-3) var(--space-2);margin:0;white-space:nowrap;overflow:hidden}
 .sidenav__group:first-child{padding-top:var(--space-2)}
 .sidenav.is-collapsed .sidenav__group{height:1px;padding:0;margin:var(--space-2);color:transparent;background:var(--color-border);border-radius:var(--radius-pill)}
+/* Variante ESCURA institucional: navy gov.br (#071d41) com gradiente + pontinhos sutis.
+   Redefine tokens no escopo → todas as regras .sidenav__* já renderizam sobre o navy. */
+.sidenav--navy{
+  --color-text:#dbe4f5; --color-text-muted:#8ea6c8;
+  --color-primary:#9dc0f0; --color-primary-subtle:rgba(255,255,255,.10);
+  --color-border:rgba(255,255,255,.12); --color-divider:rgba(255,255,255,.14);
+  color:#dbe4f5; border:1px solid rgba(255,255,255,.08);
+  background:
+    radial-gradient(rgba(255,255,255,.06) 1px, transparent 1.4px) 0 0 / 16px 16px,
+    linear-gradient(160deg, #0c326f 0%, #071d41 58%, #05152e 100%);
+}
+.sidenav--navy .sidenav__item.is-active{background:rgba(255,255,255,.12)}
 
 /* Drawer (casca lateral) */
 .drawer-backdrop{position:fixed;inset:0;background:var(--color-scrim);backdrop-filter:blur(1px);animation:ds-fade-in .2s ease}
