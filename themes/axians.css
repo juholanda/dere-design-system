@@ -1,0 +1,49 @@
+/* =============================================================================
+   Tema de MARCA — Axians (v2)   ·   apenas CORES
+   Sobrescreve SÓ os tokens de marca do ds.css. A v1 (placeholder azul) continua
+   sendo o padrão; este tema entra quando o <html> tem  data-brand="axians".
+
+   Uso:  <html data-brand="axians">
+         <link rel="stylesheet" href="ds.css">
+         <link rel="stylesheet" href="themes/axians.css">   (depois do ds.css)
+   Compõe com o dark mode (.dark / data-theme="dark").
+   Cores extraídas do site oficial axians.com (magenta, navy e azul da marca).
+   ============================================================================= */
+
+[data-brand="axians"] {
+  /* Primitivas magenta Axians */
+  --magenta-50:#fdeef5; --magenta-100:#fbd6e7; --magenta-200:#f5abcb;
+  --magenta-300:#ec73a8; --magenta-400:#db3f89; --magenta-500:#bd1470;
+  --magenta-600:#a20067; /* magenta profundo da marca — branco em cima = ~7.7:1 (AA/AAA) */
+  --magenta-700:#820053; /* fim do gradiente da marca */
+  --magenta-800:#66003f; --magenta-900:#4a002e;
+  --axians-magenta-vivid:#e6007e; /* símbolo do logo — usar em áreas grandes/dark */
+  --axians-ink:#0a1220;           /* navy dos títulos/áreas escuras */
+  --axians-blue:#005eb8;          /* azul secundário (wordmark) */
+
+  /* Marca → magenta */
+  --color-primary:        var(--magenta-600);
+  --color-primary-hover:  var(--magenta-700);
+  --color-primary-active: var(--magenta-800);
+  --color-primary-subtle: var(--magenta-50);
+  --color-primary-contrast:#ffffff;
+
+  /* Títulos no navy Axians; info no azul secundário da marca */
+  --color-heading: var(--axians-ink);
+  --color-info:    var(--axians-blue);
+  --color-info-fg: #024a94;
+  --color-info-bg: #e6f0fb;
+}
+
+/* Dark + Axians: o magenta vivo brilha melhor sobre fundo escuro */
+[data-brand="axians"].dark,
+[data-brand="axians"][data-theme="dark"] {
+  --color-primary:        var(--axians-magenta-vivid);
+  --color-primary-hover:  #f24d9c;
+  --color-primary-active: #c8006c;
+  --color-primary-subtle: color-mix(in srgb, var(--axians-magenta-vivid) 20%, var(--slate-900));
+  --color-heading:#ffffff;
+  --color-info:    #4ea6f0;
+  --color-info-fg: #9cc9f2;
+  --color-info-bg: color-mix(in srgb, var(--axians-blue) 24%, var(--slate-900));
+}
