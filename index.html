@@ -488,7 +488,7 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
 .ms__control{display:flex;align-items:center;gap:var(--space-1);height:var(--control-h);
   padding:0 var(--space-2) 0 var(--space-3);background:var(--color-surface);border:1px solid var(--color-field-border);
   border-radius:var(--radius-base);cursor:text}
-.ms__control:focus-within{border-color:var(--color-primary);box-shadow:var(--ring)}
+.ms__control:focus-within{border-color:var(--color-primary);box-shadow:0 0 0 3px color-mix(in srgb, var(--color-primary) 22%, transparent)}
 .ms__chips{display:flex;flex-wrap:wrap;gap:var(--space-1)}
 .ms__chips:not(:empty){margin-top:var(--space-2)}
 .ms__input{flex:1;min-width:90px;border:0;outline:none;background:transparent;font:inherit;font-size:var(--text-sm);color:var(--color-text);height:28px}
@@ -509,6 +509,7 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
 .alert{display:flex;gap:var(--space-3);align-items:flex-start;padding:var(--space-4) var(--space-4);border-radius:var(--radius-base);
   border:1px solid var(--color-border);background:var(--color-surface-2);color:var(--color-text)}
 .alert__icon{flex:0 0 auto;margin-top:1px;color:var(--color-text-muted);display:grid;place-items:center}
+.alert__icon svg{width:20px;height:20px}
 .alert__body{min-width:0}
 .alert__title{font-weight:600;color:var(--color-heading);margin:0 0 var(--space-1);font-size:var(--text-base)}
 .alert__text{font-size:var(--text-sm);color:var(--color-text-onmuted);margin:0}
@@ -622,7 +623,7 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
 .segmented{display:inline-flex;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-base);padding:3px;gap:2px}
 .segmented__btn{appearance:none;border:0;background:transparent;padding:var(--space-1-5) var(--space-3);border-radius:calc(var(--radius-base) - 3px);
   font:600 var(--text-sm)/1 var(--font-sans);color:var(--color-text-muted);cursor:pointer}
-.segmented__btn.is-active{background:var(--color-surface);color:var(--color-heading);box-shadow:var(--shadow-sm)}
+.segmented__btn.is-active{background:var(--color-primary);color:var(--color-primary-contrast);box-shadow:var(--shadow-sm);font-weight:700}
 .segmented__btn:focus-visible{outline:none;box-shadow:var(--ring)}
 
 /* Breadcrumb */
@@ -886,6 +887,7 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
         <div class="ramp"><p class="ramp__t">Amber · warning</p><div class="ramp__row" id="r-amber"></div></div>
         <div class="ramp"><p class="ramp__t">Red · danger</p><div class="ramp__row" id="r-red"></div></div>
         <div class="ramp"><p class="ramp__t">Sky · info</p><div class="ramp__row" id="r-sky"></div></div>
+        <div class="ramp"><p class="ramp__t">Teal · secondary</p><div class="ramp__row" id="r-teal"></div></div>
       </section>
 
       <!-- ESPAÇO + RAIO -->
@@ -1649,7 +1651,8 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
       'r-green':['50','100','200','500','600','700','800'].map(function(n){return['green',n]}),
       'r-amber':['50','100','200','500','600','700','800'].map(function(n){return['amber',n]}),
       'r-red':['50','100','200','500','600','700','800'].map(function(n){return['red',n]}),
-      'r-sky':['50','100','200','500','600','700','800'].map(function(n){return['sky',n]})
+      'r-sky':['50','100','200','500','600','700','800'].map(function(n){return['sky',n]}),
+      'r-teal':['50','100','200','500','600','700','800'].map(function(n){return['teal',n]})
     };
     Object.keys(ramps).forEach(function(id){
       var el=document.getElementById(id); if(!el) return;
