@@ -417,7 +417,30 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
   --color-border:rgba(255,255,255,.12); --color-divider:rgba(255,255,255,.14);
   color:#dbe4f5; border:1px solid rgba(255,255,255,.08);
   background:
-    radial-gradient(rgba(255,255,255,.035) 1px, transparent 1.5px) 0 0 / 22px 22px,
+    radial-gradient(circle at 8% 6%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 23% 13%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 39% 5%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 14% 26%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 47% 18%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 62% 9%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 31% 33%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 73% 24%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 54% 37%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 15%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 12% 47%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 43% 51%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 67% 43%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 90% 34%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 26% 60%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 51% 66%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 77% 57%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 35% 75%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 61% 83%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 88% 70%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 18% 86%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 45% 91%, rgba(255,255,255,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 71% 79%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 92% 88%, rgba(255,255,255,.04) 0 1px, transparent 2px),
     linear-gradient(160deg, #0c326f 0%, #071d41 58%, #05152e 100%);
 }
 .sidenav--navy .sidenav__item.is-active{background:rgba(255,255,255,.12)}
@@ -624,6 +647,15 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
 .stat__delta--up{color:var(--color-success-fg)}
 .stat__delta--down{color:var(--color-danger-fg)}
 .stat__foot{font-size:var(--text-xs);color:var(--color-text-muted)}
+/* "Ver código" por componente (documentação viva na vitrine; migra pro Storybook quando houver stack) */
+.code-toggle{margin-left:var(--space-3);font:600 var(--text-xs)/1 var(--font-sans);color:var(--color-primary);background:var(--color-primary-subtle);border:1px solid color-mix(in srgb, var(--color-primary) 25%, transparent);border-radius:var(--radius-base);padding:var(--space-1) var(--space-2);cursor:pointer;vertical-align:middle;white-space:nowrap}
+.code-toggle:hover{background:color-mix(in srgb, var(--color-primary) 14%, var(--color-surface))}
+.code-toggle:focus-visible{outline:none;box-shadow:var(--ring)}
+.codeblock{position:relative;margin:var(--space-3) 0 0;background:#0f172a;color:#e2e8f0;border:1px solid #1e293b;border-radius:var(--radius-base);padding:var(--space-8) var(--space-4) var(--space-4);overflow:auto;max-height:360px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:var(--text-xs);line-height:1.55;white-space:pre;tab-size:2}
+.codeblock[hidden]{display:none}
+.codeblock code{font:inherit;color:inherit;background:none;padding:0}
+.code-copy{position:absolute;top:var(--space-2);right:var(--space-2);font:600 var(--text-xs)/1 var(--font-sans);color:#fff;background:rgba(255,255,255,.16);border:0;border-radius:var(--radius-sm);padding:var(--space-1) var(--space-2);cursor:pointer}
+.code-copy:hover{background:rgba(255,255,255,.28)}
 
 /* Tabs / abas */
 .tabs{display:flex;gap:var(--space-1);border-bottom:1px solid var(--color-border)}
@@ -1847,6 +1879,32 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
     btn.addEventListener('click',function(e){ e.stopPropagation(); var open=!panel.hidden; panel.hidden=open; btn.setAttribute('aria-expanded',String(!open)); });
     document.addEventListener('click',function(e){ if(!menu.contains(e.target)){ panel.hidden=true; btn.setAttribute('aria-expanded','false'); } });
   });
+
+  /* Ver código de cada componente (extrai o HTML do demo, limpa hooks de JS e estado) */
+  (function(){
+    function clean(el){
+      return el.outerHTML
+        .replace(/ data-[a-z0-9-]+(="[^"]*")?/gi,'')
+        .replace(/ (aria-expanded|aria-selected|aria-activedescendant)="[^"]*"/gi,'')
+        .replace(/ hidden(="[^"]*")?/gi,'')
+        .replace(/></g,'>\n<')
+        .trim();
+    }
+    document.querySelectorAll('section.sec[id]').forEach(function(sec){
+      var demo=sec.querySelector('.card, .table, .sidenav, .bulkbar, .stepper, .timeline, .demo');
+      var h2=sec.querySelector('h2');
+      if(!demo||!h2) return;
+      var pre=document.createElement('pre'); pre.className='codeblock'; pre.hidden=true;
+      var code=document.createElement('code'); code.textContent=clean(demo); pre.appendChild(code);
+      var copy=document.createElement('button'); copy.type='button'; copy.className='code-copy'; copy.textContent='Copiar';
+      copy.addEventListener('click',function(){ try{ navigator.clipboard.writeText(code.textContent); }catch(e){} copy.textContent='Copiado!'; setTimeout(function(){copy.textContent='Copiar';},1400); });
+      pre.appendChild(copy);
+      var btn=document.createElement('button'); btn.type='button'; btn.className='code-toggle'; btn.setAttribute('aria-expanded','false'); btn.textContent='</> código';
+      btn.addEventListener('click',function(){ var willOpen=pre.hidden; pre.hidden=!willOpen; btn.setAttribute('aria-expanded',String(willOpen)); });
+      h2.appendChild(btn);
+      demo.parentNode.insertBefore(pre, demo.nextSibling);
+    });
+  })();
 </script>
 </body>
 </html>
