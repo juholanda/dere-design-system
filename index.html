@@ -312,6 +312,13 @@ textarea.input{height:auto;padding:var(--space-2) var(--space-3);min-height:84px
 .table tbody tr:has(.col--check input:checked){background:var(--color-primary-subtle)}
 .table tbody tr:has(.col--check input:checked):hover{background:color-mix(in srgb, var(--color-primary) 14%, var(--color-surface))}
 .table .col--num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+/* Barra de ações em massa: aparece ao selecionar linhas; gruda no topo ao rolar */
+.bulkbar{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);margin-bottom:var(--space-3);
+  background:var(--color-primary-subtle);border:1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  border-radius:var(--radius-base);position:sticky;top:var(--space-3);z-index:5}
+.bulkbar[hidden]{display:none}
+.bulkbar__count{font-weight:700;font-size:var(--text-sm);color:var(--color-primary)}
+.bulkbar__actions{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-left:auto}
 /* Cabeçalho ordenável: texto na cor da marca + ícone de ordenar */
 .table th.sortable{color:var(--color-primary);cursor:pointer;user-select:none}
 .table th.sortable:hover{color:var(--color-primary-hover)}
@@ -1047,11 +1054,8 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
             <input id="fn" class="input input--num" inputmode="numeric" value="1.284">
           </div>
           <div class="field">
-            <label class="field__label" for="fd">Vencimento (ícone à direita)</label>
-            <div class="field-icon field-icon--right">
-              <input id="fd" class="input" placeholder="Ex.: 20/09/2026">
-              <span class="field-icon__i"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></span>
-            </div>
+            <label class="field__label" for="fd">Vencimento (data, abre o date picker)</label>
+            <input id="fd" class="input" type="date" value="2026-09-20">
           </div>
           <div class="field col-full">
             <label class="field__label" for="f5">Observação</label>
@@ -1206,6 +1210,14 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
         <p class="sec__k">Componentes</p>
         <h2>Tabela</h2>
         <p class="sec__hint">Seleção (checkbox), cabeçalho ordenável (na cor da marca), colunas de ícone+texto, avatar+texto e progresso, e ações à direita. Valor com <code>tabular-nums</code>. Rola sozinha em telas estreitas.</p>
+        <div class="bulkbar" data-bulkbar hidden>
+          <span class="bulkbar__count" data-bulk-count>0 itens selecionados</span>
+          <div class="bulkbar__actions">
+            <button class="btn btn--sm btn--secondary" type="button">Classificar codTrib</button>
+            <button class="btn btn--sm btn--danger" type="button">Excluir</button>
+            <button class="btn btn--sm btn--ghost" type="button" data-bulk-clear>Limpar seleção</button>
+          </div>
+        </div>
         <div class="overflow">
           <table class="table">
             <thead><tr>
@@ -1570,10 +1582,16 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
       var head=t.querySelector('thead .col--check input');
       var rows=[].slice.call(t.querySelectorAll('tbody .col--check input'));
       if(!head||!rows.length) return;
+      var sec=t.closest('section');
+      var bar=sec?sec.querySelector('[data-bulkbar]'):null;
+      var countEl=bar?bar.querySelector('[data-bulk-count]'):null;
+      var clearBtn=bar?bar.querySelector('[data-bulk-clear]'):null;
       function sync(){ var n=rows.filter(function(r){return r.checked;}).length;
-        head.checked=n===rows.length; head.indeterminate=n>0&&n<rows.length; }
-      head.addEventListener('change',function(){ rows.forEach(function(r){r.checked=head.checked;}); head.indeterminate=false; });
+        head.checked=n===rows.length; head.indeterminate=n>0&&n<rows.length;
+        if(bar){ bar.hidden=n===0; if(countEl) countEl.textContent=n+(n===1?' item selecionado':' itens selecionados'); } }
+      head.addEventListener('change',function(){ rows.forEach(function(r){r.checked=head.checked;}); head.indeterminate=false; sync(); });
       rows.forEach(function(r){ r.addEventListener('change',sync); });
+      if(clearBtn) clearBtn.addEventListener('click',function(){ rows.forEach(function(r){r.checked=false;}); head.checked=false; head.indeterminate=false; sync(); });
       sync();
     });
   })();
