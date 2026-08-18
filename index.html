@@ -71,11 +71,11 @@
   --color-info:   var(--sky-600);   --color-info-bg:   var(--sky-100);   --color-info-fg:   var(--sky-700);
 
   /* ---- Escala de espaçamento (4/8/12/16/24/32/40/48/56) ---- */
-  --space-1:.25rem; --space-1-5:.375rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-1:.25rem; --space-1-5:var(--space-1-5); --space-2:.5rem; --space-3:var(--space-3); --space-4:1rem;
   --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem; --space-12:3rem; --space-14:3.5rem;
   /* Tipografia — escala (base do body = 16px) */
   /* rem p/ responder ao tamanho de fonte do usuário (WCAG 1.4.4); px no comentário p/ clareza. Raiz = 16px. */
-  --text-xs:.75rem;    /* 12px · legenda, caption, meta, badge */
+  --text-xs:var(--space-3);    /* 12px · legenda, caption, meta, badge */
   --text-sm:.875rem;   /* 14px · UI densa: menu, botão, campo, célula de tabela */
   --text-base:1rem;    /* 16px · corpo / leitura */
   --text-lg:1.125rem;  /* 18px · lead, subtítulo, h4 */
@@ -217,10 +217,10 @@ a{color:var(--color-primary);text-decoration:none}
 .icon-btn--danger:hover:not(:disabled){background:var(--color-danger-bg);color:var(--color-danger)}
 
 /* Campo (label + controle + ajuda/erro) */
-.field{display:flex;flex-direction:column;gap:.375rem}
+.field{display:flex;flex-direction:column;gap:var(--space-1-5)}
 .field__label{font-size:var(--text-sm);font-weight:600;color:var(--color-heading)}
 .field__req{color:var(--color-danger)}
-.input,.select,textarea.input{width:100%;height:var(--control-h);padding:0 .75rem;
+.input,.select,textarea.input{width:100%;height:var(--control-h);padding:0 var(--space-3);
   background:var(--color-surface);color:var(--color-text);
   border:1px solid var(--color-field-border);border-radius:var(--radius-base);
   font-family:var(--font-sans);font-size:var(--text-base);transition:border-color .12s,box-shadow .12s}
@@ -243,7 +243,7 @@ textarea.input{height:auto;padding:var(--space-2) var(--space-3);min-height:84px
 .readonly-field{display:flex;flex-direction:column;gap:var(--space-1)}
 .readonly-field__label{font-size:var(--text-sm);font-weight:600;color:var(--color-heading)}
 .readonly-field__value{font-size:var(--text-base);color:var(--color-heading)}
-.select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .7rem center;padding-right:2rem}
+.select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--space-3) center;padding-right:2rem}
 
 /* Check / radio / switch */
 .check{display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;font-size:var(--text-sm)}
@@ -438,10 +438,10 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
 /* Campo com ícone (busca / afixo) — ícone dentro do controle, sem quebrar o layout */
 .field-icon{position:relative;display:flex;align-items:center}
 .field-icon .input{padding-left:2.2rem}
-.field-icon__i{position:absolute;left:.7rem;color:var(--color-text-muted);pointer-events:none;display:grid;place-items:center}
+.field-icon__i{position:absolute;left:var(--space-3);color:var(--color-text-muted);pointer-events:none;display:grid;place-items:center}
 /* Ícone à direita (ex.: calendário, relógio) */
-.field-icon--right .input{padding-left:.75rem;padding-right:2.2rem}
-.field-icon--right .field-icon__i{left:auto;right:.7rem}
+.field-icon--right .input{padding-left:var(--space-3);padding-right:2.2rem}
+.field-icon--right .field-icon__i{left:auto;right:var(--space-3)}
 
 /* Campo com botão de LIMPAR (X) — aparece só quando há texto (via :placeholder-shown) */
 .field-clear{position:relative}
@@ -456,8 +456,8 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
 /* Afixo de texto: prefixo (R$) / sufixo (% ou unidade) dentro do controle */
 .field-affix{position:relative;display:flex;align-items:center}
 .field-affix__pre,.field-affix__suf{position:absolute;color:var(--color-text-muted);font-size:var(--text-sm);pointer-events:none;font-variant-numeric:tabular-nums}
-.field-affix__pre{left:.75rem}
-.field-affix__suf{right:.75rem}
+.field-affix__pre{left:var(--space-3)}
+.field-affix__suf{right:var(--space-3)}
 .field-affix--pre .input{padding-left:2.5rem}
 .field-affix--suf .input{padding-right:2.6rem}
 
@@ -468,7 +468,7 @@ button.avatar:focus-visible{outline:none;box-shadow:var(--ring)}
 .combo{position:relative}
 .combo__control{position:relative;display:flex;align-items:center}
 .combo__control .input{padding-right:2.2rem}
-.combo__icon{position:absolute;right:.7rem;color:var(--color-text-muted);pointer-events:none;display:grid;place-items:center;transition:transform .18s}
+.combo__icon{position:absolute;right:var(--space-3);color:var(--color-text-muted);pointer-events:none;display:grid;place-items:center;transition:transform .18s}
 .combo[aria-expanded="true"] .combo__icon,.combo__control[aria-expanded="true"] .combo__icon{transform:rotate(180deg)}
 .combo__panel{position:absolute;z-index:30;top:calc(100% + 6px);left:0;right:0;background:var(--color-surface);
   border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);
